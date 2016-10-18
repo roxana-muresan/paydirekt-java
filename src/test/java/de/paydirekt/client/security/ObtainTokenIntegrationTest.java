@@ -1,11 +1,11 @@
-package de.paydirekt.client;
+package de.paydirekt.client.security;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.paydirekt.client.model.AccessToken;
-import de.paydirekt.client.model.ObtainTokenRequest;
-import de.paydirekt.client.security.Hmac;
-import de.paydirekt.client.security.Nonce;
+import de.paydirekt.client.rest.EndpointProperties;
+import de.paydirekt.client.security.model.AccessToken;
+import de.paydirekt.client.security.model.ObtainTokenRequest;
+import de.paydirekt.client.testutil.TestProperties;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
@@ -45,9 +45,7 @@ import static org.mockito.Mockito.when;
  */
 public class ObtainTokenIntegrationTest {
 
-    private static final Logger logger = LoggerFactory.getLogger("paydirekt");
-
-    private static final String SANDBOX_ENDPOINT = "https://api.sandbox.paydirekt.de/api/merchantintegration/v1/token/obtain";
+    private static final Logger logger = LoggerFactory.getLogger(ObtainTokenIntegrationTest.class);
 
     private HttpClient httpClient;
     private ObjectMapper objectMapper;
@@ -63,8 +61,8 @@ public class ObtainTokenIntegrationTest {
     public void obtainTokenFromSandbox() throws Exception {
 
         // credentials
-        final String apiKey = "e81d298b-60dd-4f46-9ec9-1dbc72f5b5df";
-        String apiSecret = "GJlN718sQxN1unxbLWHVlcf0FgXw2kMyfRwD0mgTRME=";
+        final String apiKey = TestProperties.API_KEY;
+        String apiSecret = TestProperties.API_SECRET;
 
         // ingredients: time, request ID and random nonce
         final Instant now = Instant.now();
@@ -74,7 +72,7 @@ public class ObtainTokenIntegrationTest {
         // calculate the HMAC signature
         final String signature = Hmac.signature(requestId, now, apiKey, apiSecret, randomNonce);
 
-        HttpPost post = new HttpPost(SANDBOX_ENDPOINT);
+        HttpPost post = new HttpPost(EndpointProperties.getTokenObtainEndpoint());
 
         // set necessary request headers
         // use the RFC-1123 date format
@@ -108,7 +106,7 @@ public class ObtainTokenIntegrationTest {
             //logger.debug("{} token.obtain.response.body: {}", requestId, responseString);
         } catch (IOException e) {
             logger.error("{} token.obtain.exception: IO exception", requestId, e.getMessage());
-            throw new RuntimeException("Error connecting to paydirekt endpoint " + SANDBOX_ENDPOINT, e);
+            throw new RuntimeException("Error connecting to paydirekt endpoint " + EndpointProperties.getTokenObtainEndpoint(), e);
         }
 
         // response handling
