@@ -1,4 +1,6 @@
-package de.paydirekt.client.model;
+package de.paydirekt.client.security.model;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * An OAuth2 access token as defined in
@@ -12,25 +14,19 @@ package de.paydirekt.client.model;
  */
 public class AccessToken {
 
-    private CharSequence access_token;
-    private Long expires_in;
+    private final CharSequence access_token;
+    private final Long expires_in;
 
     /**
      * Constructor.
      *
      * @param access_token The OAuth2 access token.
-     * @param expires_in Time in seconds until the access token expires.
+     * @param expires_in   Time in seconds until the access token expires.
      */
-    public AccessToken(CharSequence access_token,
-                       Long expires_in) {
+    public AccessToken(@JsonProperty("access_token") CharSequence access_token,
+                       @JsonProperty("expires_in") Long expires_in) {
         this.access_token = access_token;
         this.expires_in = expires_in;
-    }
-
-    /**
-     * Protected default constructor.
-     */
-    protected AccessToken() {
     }
 
     /**
