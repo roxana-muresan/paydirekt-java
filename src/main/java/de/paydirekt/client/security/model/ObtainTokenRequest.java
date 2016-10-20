@@ -1,6 +1,8 @@
-package de.paydirekt.client.model;
+package de.paydirekt.client.security.model;
 
 import de.paydirekt.client.security.Nonce;
+
+import static java.util.Objects.nonNull;
 
 /**
  * Request body to obtain an access token.
@@ -18,6 +20,7 @@ public class ObtainTokenRequest {
      * @param randomNonce The random nonce to be used in the signature.
      */
     public ObtainTokenRequest(CharSequence randomNonce) {
+        nonNull(randomNonce);
         this.randomNonce = randomNonce;
     }
 

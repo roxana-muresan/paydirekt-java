@@ -27,11 +27,11 @@ With Maven installed, clone this repository and run the tests:
 mvn clean test
 ```
 
-By default, all tests are mocked.
-To run the test against the actual sandbox endpoint, run:
+By default, all requests run against the sandbox environment.
+To run against the actual production endpoints, set the system property:
 
 ```
-mvn clean test -Dremote=true
+-Dproduction=true
 ```
 
 

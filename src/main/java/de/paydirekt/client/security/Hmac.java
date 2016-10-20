@@ -28,7 +28,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  */
 public final class Hmac {
 
-    private static final Logger logger = LoggerFactory.getLogger("paydirekt");
+    private static final Logger logger = LoggerFactory.getLogger(Hmac.class);
 
     private static final String CRYPTO_ALGORITHM = "HmacSHA256";
 
