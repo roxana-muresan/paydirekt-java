@@ -35,6 +35,7 @@ public class Transaction {
     private final String paymentInformationId;
     private final String MCC;
     private final String DBI;
+    private final String reconciliationReferenceNr;
 
     /**
      * Constructor.
@@ -67,6 +68,7 @@ public class Transaction {
      * @param paymentInformationId               The payment information id of the SEPA-Transaction.
      * @param MCC                                Merchant Category Code.
      * @param DBI                                Details Business Indicator.
+     * @param reconciliationReferenceNr          The reference number which is used in the purpose description.
      */
     public Transaction(@JsonProperty("correlationId") String correlationId,
                        @JsonProperty("endToEndReferenceNumber") String endToEndReferenceNumber,
@@ -95,7 +97,8 @@ public class Transaction {
                        @JsonProperty("captureInvoiceNr") String captureInvoiceNr,
                        @JsonProperty("paymentInformationId") String paymentInformationId,
                        @JsonProperty("MCC") String MCC,
-                       @JsonProperty("DBI") String DBI) {
+                       @JsonProperty("DBI") String DBI,
+                       @JsonProperty("reconciliationReferenceNr") String reconciliationReferenceNr) {
         this.correlationId = correlationId;
         this.endToEndReferenceNumber = endToEndReferenceNumber;
         this.transactionTypeId = transactionTypeId;
@@ -124,6 +127,7 @@ public class Transaction {
         this.paymentInformationId = paymentInformationId;
         this.MCC = MCC;
         this.DBI = DBI;
+        this.reconciliationReferenceNr = reconciliationReferenceNr;
     }
 
     public String getCorrelationId() {
@@ -236,5 +240,9 @@ public class Transaction {
 
     public String getDBI() {
         return DBI;
+    }
+
+    public String getReconciliationReferenceNr() {
+        return reconciliationReferenceNr;
     }
 }

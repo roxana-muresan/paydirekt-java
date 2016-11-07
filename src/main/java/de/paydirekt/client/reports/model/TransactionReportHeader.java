@@ -28,6 +28,7 @@ public enum TransactionReportHeader {
     MCC("MCC"),
     PAYDIREKT_EXPRESS("paydirektExpress"),
     PAYMENT_INFORMATION_ID("paymentInformationId"),
+    RECONCILIATION_REFERENCE_NR("reconciliationReferenceNr"),
     SHOP_ID("shopId"),
     SHOP_NAME("shopName"),
     TRANSACTION_TPE_ID("transactionTypeId"),
