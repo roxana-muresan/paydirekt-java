@@ -30,8 +30,6 @@ import static org.hamcrest.Matchers.notNullValue;
  */
 public class ReportsClientIntegrationTest {
 
-    private static final Integer EXPECTED_NUMBER_OF_FIELDS = TransactionReportHeader.values().length;
-
     private ReportsClient reportsClient;
     private TestDataProvider testDataProvider;
 
@@ -73,13 +71,6 @@ public class ReportsClientIntegrationTest {
                 "The JSON-Report and the CSV-Report should have an equal number of records",
                 jsonReport.getTransactions().size(),
                 is(csvReport.size())
-        );
-        csvReport.forEach(
-                record -> assertThat(
-                        "The CSV-Record should have as many fields as there are headers",
-                        record.size(),
-                        is(EXPECTED_NUMBER_OF_FIELDS)
-                )
         );
         csvReport.forEach(
                 record -> assertDateWithinRange(
