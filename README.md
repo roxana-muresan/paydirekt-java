@@ -7,8 +7,8 @@ The source code demonstrates how to create valid requests for the paydirekt REST
 
 ## Requirements
 * Java 8 or later
+* Java Cryptography Extension (JCE)
 * Maven 3 or later
-
 
 ## Dependencies
 The following dependencies are used:
@@ -21,7 +21,8 @@ The following libraries are recommended and their use is demonstrated in the exa
 * [Jackson 2](http://wiki.addfasterxml.com/JacksonRelease20) for JSON serialization and deserialization.
 
 ## Usage
-With Maven installed, clone this repository and run the tests:
+Make sure that Java 8, the Java Cryptography Extension (JCE) and Maven are properly installed.
+Then clone this repository and run the tests:
 
 ```
 mvn clean test
