@@ -79,7 +79,7 @@ public class SecurityClient {
         final String signature = Hmac.signature(requestId, now, apiKey, apiSecret, randomNonce);
         // use the RFC-1123 date format
         final String rfc1123DateString = DateTimeFormatter.RFC_1123_DATE_TIME.format(
-                ZonedDateTime.ofInstant(Instant.now(), ZoneId.of("GMT")));
+                ZonedDateTime.ofInstant(now, ZoneId.of("GMT")));
 
         return new PostRequestBuilder(tokenEndpoint)
                 .withHeader("X-Date", rfc1123DateString)
