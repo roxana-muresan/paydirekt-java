@@ -1,12 +1,10 @@
 package de.paydirekt.client.rest;
 
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -19,7 +17,7 @@ public class RequestExecutorIntegrationTest {
     @Test
     public void shouldThrowHttpStatusExceptionOnExecutionOfBadRequest() {
 
-        HttpGet badRequest = new GetRequestBuilder(EndpointProperties.getTokenObtainEndpoint()).build();
+        HttpPost badRequest = new PostRequestBuilder(EndpointProperties.getTokenObtainEndpoint()).build();
         HttpStatusException expectedException = null;
 
         try {
