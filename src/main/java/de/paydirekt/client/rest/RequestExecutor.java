@@ -1,6 +1,5 @@
 package de.paydirekt.client.rest;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
@@ -12,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -78,35 +75,9 @@ public class RequestExecutor {
         // response handling
         int statusCode = response.getStatusLine().getStatusCode();
         if (statusCode != 200 && statusCode != 201 && statusCode != 204) {
-            throw new HttpStatusException(statusCode, parseErrorMessages(responseString));
+            throw new HttpStatusException(statusCode, responseString);
         }
 
         return responseString;
     }
-
-    private List<ErrorMessage> parseErrorMessages(String responseString) {
-        try {
-            return objectMapper.readValue(responseString, ErrorMessages.class).getErrorMessages();
-        } catch (IOException e) {
-            logger.error("Failed to parse ErrorMessages out of {}", responseString);
-            return Collections.emptyList();
-        }
-    }
-
-    /**
-     * Container for {@link ErrorMessage} that helps with deserialization.
-     */
-    private static class ErrorMessages {
-
-        private List<ErrorMessage> errorMessages;
-
-        public ErrorMessages(@JsonProperty("messages") List<ErrorMessage> errorMessages) {
-            this.errorMessages = errorMessages;
-        }
-
-        public List<ErrorMessage> getErrorMessages() {
-            return errorMessages;
-        }
-    }
-
 }

@@ -1,34 +1,30 @@
 package de.paydirekt.client.rest;
 
-import java.util.List;
-
-import static java.util.Collections.unmodifiableList;
-
 /**
  * This Exception is thrown when a StatusCode other than 2XX is returned for a request.
  */
 public class HttpStatusException extends RuntimeException {
 
     private final int statusCode;
-    private final List<ErrorMessage> errorMessages;
+    private final String response;
 
     /**
      * Constructor.
      *
      * @param statusCode    The HTTP status code.
-     * @param errorMessages The messages detailing the error.
+     * @param response      The erroneous response.
      */
-    public HttpStatusException(int statusCode, List<ErrorMessage> errorMessages) {
+    public HttpStatusException(int statusCode, String response) {
         super("Unexpected status code: " + statusCode);
         this.statusCode = statusCode;
-        this.errorMessages = unmodifiableList(errorMessages);
+        this.response = response;
     }
 
     public int getStatusCode() {
         return statusCode;
     }
 
-    public List<ErrorMessage> getErrorMessages() {
-        return errorMessages;
+    public String getResponse() {
+        return response;
     }
 }

@@ -3,8 +3,8 @@ package de.paydirekt.client.rest;
 import org.apache.http.client.methods.HttpPost;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -27,10 +27,8 @@ public class RequestExecutorIntegrationTest {
         }
 
         assertThat(expectedException, notNullValue());
-        assertThat(expectedException.getErrorMessages(), notNullValue());
-        assertThat(expectedException.getErrorMessages(), contains(
-                hasProperty("severity", is(ErrorSeverity.ERROR))
-        ));
+        assertThat(expectedException.getResponse(), notNullValue());
+        assertThat(expectedException.getResponse(), containsString("error"));
     }
 
 }
